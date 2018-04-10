@@ -28,8 +28,10 @@
 
 
 (setq inhibit-startup-message t)
-(tool-bar-mode -1)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(tool-bar-mode -1) ;; tool bar off
+(global-visual-line-mode t) ;; word wrap by default
+(add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; maximise window by default
+(setq default-frame-alist '((font . "UbuntuMono-12"))) ;; set default font
 
 (require 'package)
 (setq package-enable-at-startup nil)
