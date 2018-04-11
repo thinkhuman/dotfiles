@@ -28,6 +28,8 @@
 
 
 (setq inhibit-startup-message t)
+
+;; UI CUSTOMIZATION
 (tool-bar-mode -1) ;; tool bar off
 (global-visual-line-mode t) ;; word wrap by default
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; maximise window by default
@@ -45,28 +47,31 @@
 	(package-refresh-contents)
 	(package-install 'use-package))
 
+;; Display available key bindings in a popup
 (use-package which-key
 	:ensure t 
 	:config
 	(which-key-mode))
 
+;; Ido mode, for completion
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
 
-
+;; Flycheck, for syntax checking
 (use-package flycheck
   :ensure t
   :init
   (global-flycheck-mode t))
 
+;; Jedi, for Python auto completion
 (use-package jedi
   :ensure t
   :init
   (add-hook 'python-mode-hook 'jedi:setup)
   (add-hook 'python-mode-hook 'jedi:ac-setup))
 
-
+;; Markdown syntax coloring and commands
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -75,7 +80,7 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-
+;; Org mode custom key kindings
 ;; The following lines are always needed.  Choose your own keys.
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
