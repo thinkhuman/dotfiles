@@ -18,7 +18,7 @@
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
+    (auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -32,8 +32,20 @@
 ;; UI CUSTOMIZATION
 (tool-bar-mode -1) ;; tool bar off
 (global-visual-line-mode t) ;; word wrap by default
+(global-linum-mode t) ;; line numbers by default
+(set-cursor-color "#32cd32") ;; set default cursor color
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; maximise window by default
 (setq default-frame-alist '((font . "UbuntuMono-12"))) ;; set default font
+(toggle-scroll-bar -1) ;; Disable vertical scrollbar
+(setq linum-format " %d ") ;; Adjust spacing in line numbers
+(custom-set-faces '(linum ((t (:foreground "32cd32" :background "#000000" :box nil)))))
+;; Display buffer's full  path name in frame title bar
+(setq frame-title-format
+      '(buffer-file-name "%b - %f" ; File buffer
+        (dired-directory dired-directory ; Dired buffer
+         (revert-buffer-function "%b" ; Buffer Menu
+          ("%b - Dir: " default-directory))))) ; Plain buffer
+
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -86,3 +98,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-switchb)
+
+;; Disable backup files
+(setq make-backup-files nil)
+(setq auto-save-default nil)
