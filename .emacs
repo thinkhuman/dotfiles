@@ -1,8 +1,3 @@
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
 
 (custom-set-variables
@@ -16,15 +11,16 @@
  '(custom-safe-themes
    (quote
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+ '(org-agenda-files (quote ("~/Dropbox/orgtest.org")))
  '(package-selected-packages
    (quote
-    (auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
+    (neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(linum ((t (:foreground "#42a5f5" :background "#222222" :box nil)))))
 
 
 (setq inhibit-startup-message t)
@@ -38,14 +34,15 @@
 (setq default-frame-alist '((font . "UbuntuMono-12"))) ;; set default font
 (toggle-scroll-bar -1) ;; Disable vertical scrollbar
 (setq linum-format " %d ") ;; Adjust spacing in line numbers
-(custom-set-faces '(linum ((t (:foreground "32cd32" :background "#000000" :box nil)))))
+ ;; Set line number colors
 ;; Display buffer's full  path name in frame title bar
 (setq frame-title-format
       '(buffer-file-name "%b - %f" ; File buffer
         (dired-directory dired-directory ; Dired buffer
          (revert-buffer-function "%b" ; Buffer Menu
           ("%b - Dir: " default-directory))))) ; Plain buffer
-
+(setq split-height-threshold 0)
+(setq split-width-threshold nil)
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -61,7 +58,7 @@
 
 ;; Display available key bindings in a popup
 (use-package which-key
-	:ensure t 
+	:ensure t
 	:config
 	(which-key-mode))
 
@@ -91,6 +88,16 @@
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+;; Directory tree display, like Vim's Nerdtree
+(use-package neotree
+  :ensure t
+  :bind (("<f2>" . neotree-toggle))
+  :init (setq neo-window-width 25)
+  :config (setq neo-smart-open t))
+
+;; Display the time
+(display-time-mode 1)
 
 ;; Org mode custom key kindings
 ;; The following lines are always needed.  Choose your own keys.
