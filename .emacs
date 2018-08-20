@@ -145,6 +145,13 @@
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag)))
 
+;; Powerline for a fancier mode line, a la Vim.
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-default-theme)
+  )
+
 ;; Display the time
 (display-time-mode 1)
 
