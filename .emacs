@@ -14,7 +14,7 @@
  '(org-agenda-files (quote ("~/Dropbox/orgtest.org")))
  '(package-selected-packages
    (quote
-    (neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
+    (org-journal neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -152,6 +152,18 @@
   (powerline-default-theme)
   )
 
+;; Web mode, to improve working with HTML, etc.
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.js?\\'" . web-mode))
+
+(setq web-mode-enable-auto-closing t)
+(setq web-mode-enable-auto-quoting t))
+
+
 ;; Display the time
 (display-time-mode 1)
 
@@ -165,6 +177,15 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-switchb)
 (global-set-key "\C-ct" 'org-table-create)
+
+(setq org-todo-keywords
+      '((sequence "TODO" "THIS WEEK" "DOING" "TODAY" "|" "FINISHED")))
+
+;; For keeping a daily journal. Org-journal makes one file for each day.
+(use-package org-journal
+  :ensure t
+  :custom (setq org-journal-dir "~/Dropbox/Writing/Journal/"))
+   (setq org-journal-file-format "%m.%d.%Y.org")
 
 ;; Disable backup files
 (setq make-backup-files nil)
