@@ -11,10 +11,10 @@
  '(custom-safe-themes
    (quote
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(org-agenda-files (quote ("~/Dropbox/orgtest.org")))
+;; '(org-agenda-files (quote ("~/Dropbox/orgtest.org")))
  '(package-selected-packages
    (quote
-    (org-journal neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
+    (neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -26,7 +26,9 @@
 (setq inhibit-startup-message t)
 
 ;; UI CUSTOMIZATION
+(defvar linum-format)
 (tool-bar-mode -1) ;; tool bar off
+(menu-bar-mode -1) ;; menu bar off
 (global-visual-line-mode t) ;; word wrap by default
 (global-linum-mode t) ;; line numbers by default
 (set-cursor-color "#32cd32") ;; set default cursor color
@@ -63,6 +65,8 @@
 	(which-key-mode))
 
 ;; Ido mode, for completion
+(defvar ido-enable-flex-matching)
+(defvar ido-everywhere)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
@@ -90,6 +94,7 @@
   :init (setq markdown-command "multimarkdown"))
 
 ;; Directory tree display, like Vim's Nerdtree
+(defvar winum-keymap)
 (use-package treemacs
   :ensure t
   :defer t
@@ -178,14 +183,19 @@
 (global-set-key "\C-cb" 'org-switchb)
 (global-set-key "\C-ct" 'org-table-create)
 
+;; Define default todo item states
 (setq org-todo-keywords
-      '((sequence "TODO" "THIS WEEK" "DOING" "TODAY" "|" "FINISHED")))
+      '((sequence "TODO" "IN-PROGRESS" "WAITING" "|" "DONE" "CANCELED")))
 
-;; For keeping a daily journal. Org-journal makes one file for each day.
-(use-package org-journal
-  :ensure t
-  :custom (setq org-journal-dir "~/Dropbox/Writing/Journal/"))
-   (setq org-journal-file-format "%m.%d.%Y.org")
+;; File location to build agenda view from
+(setq org-agenda-files '("~/Dropbox/logs/"))
+
+(setq org-capture-templates
+      '(("a" "My TODO task format." entry
+         (file "todo.org")
+         "* TODO %?
+SCHEDULED: %t")))
+
 
 ;; Disable backup files
 (setq make-backup-files nil)
