@@ -1,4 +1,5 @@
-(setq inhibit-startup-message t)
+
+(setq inhibit-startup-message t) ; Disable the default Emacs startup screen
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -9,7 +10,7 @@
 
 
 
-;; Bootstrap use-package
+; Bootstrap use-package
 (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
 	(package-install 'use-package))
@@ -28,13 +29,16 @@
  '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
    (quote
-    ("1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+    ("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "3f44e2d33b9deb2da947523e2169031d3707eec0426e78c7b8a646ef773a2077" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(fci-rule-color "#373b41")
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(frame-background-mode (quote dark))
+ '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(org-journal-dir "~/Dropbox/logs/journal/")
+ '(org-journal-file-format "%m.%d.%Y.org")
  '(package-selected-packages
    (quote
-    (color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna)))
+    (zenburn-theme sr-speedbar color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -66,52 +70,85 @@
 
 ;; UI CUSTOMIZATION
 (defvar linum-format)
-(tool-bar-mode -1) ;; tool bar off
-(menu-bar-mode -1) ;; menu bar off
-(global-visual-line-mode t) ;; word wrap by default
-(global-linum-mode t) ;; line numbers by default
-(set-cursor-color "#32cd32") ;; set default cursor color
+(setq-default cursor-type 'bar)   ; change cursor to bar
+(tool-bar-mode -1)                ; tool bar off
+(menu-bar-mode -1)                ; menu bar off
+(global-visual-line-mode t)       ; word wrap by default
+(global-linum-mode t)             ; line numbers by default
+(show-paren-mode 1)               ; Highlight parenthesis pairs
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(set-cursor-color "#0684ea")      ; set default cursor color
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ;; maximise window by default
 (setq default-frame-alist '((font . "UbuntuMono-12"))) ;; set default font
-(toggle-scroll-bar -1) ;; Disable vertical scrollbar
-(setq linum-format " %d ") ;; Adjust spacing in line numbers
- ;; Set line number colors
+(toggle-scroll-bar -1)            ; Disable vertical scrollbar
+(setq linum-format " %d ")        ; Adjust spacing in line numbers
+(display-time-mode 1)             ; Display the time
+
+
+;; Set line number colors
 ;; Display buffer's full  path name in frame title bar
 (setq frame-title-format
-      '(buffer-file-name "%b - %f" ; File buffer
-        (dired-directory dired-directory ; Dired buffer
-         (revert-buffer-function "%b" ; Buffer Menu
-          ("%b - Dir: " default-directory))))) ; Plain buffer
+      '(buffer-file-name "%b - %f"              ; File buffer
+        (dired-directory dired-directory        ; Dired buffer
+         (revert-buffer-function "%b"           ; Buffer Menu
+          ("%b - Dir: " default-directory)))))  ; Plain buffer
 (setq split-height-threshold 0)
 (setq split-width-threshold nil)
 
-;; Display available key bindings in a popup
+
+
+;; Use which-key to display available key bindings in a popup
 (use-package which-key
 	:ensure t
 	:config
 	(which-key-mode))
 
-;; Ido mode, for completion
+; Use speedbar and sr-speedbar, for a sidebar file browser
+(use-package sr-speedbar
+  :ensure t
+  :init
+(set-variable 'sr-speedbar-right-side nil))
+;;(setq speedbar-use-images nil)
+(setq speedbar-show-unknown-files t)
+(setq sr-speedbar-width 15)
+(setq speedbar-directory-unshown-regexp
+"^\\(CVS\\|RCS\\|SCCS\\|\\.\\.*$\\)\\'")
+(sr-speedbar-open)
+
+
+(when window-system
+  (defadvice sr-speedbar-open (after sr-speedbar-open-resize-frame activate)
+    (set-frame-width (selected-frame)
+                     (+ (frame-width) sr-speedbar-width)))
+  (ad-enable-advice 'sr-speedbar-open 'after 'sr-speedbar-open-resize-frame)
+
+  (defadvice sr-speedbar-close (after sr-speedbar-close-resize-frame activate)
+    (sr-speedbar-recalculate-width)
+    (set-frame-width (selected-frame)
+                     (- (frame-width) sr-speedbar-width)))
+(ad-enable-advice 'sr-speedbar-close 'after 'sr-speedbar-close-resize-frame))
+
+; Use Ido mode, for completion
 (defvar ido-enable-flex-matching)
 (defvar ido-everywhere)
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
 
-;; Flycheck, for syntax checking
+; Use Flycheck, for syntax checking
 (use-package flycheck
   :ensure t
   :init
   (global-flycheck-mode t))
 
-;; Jedi, for Python auto completion
+; Use Jedi, for Python auto completion
 (use-package jedi
   :ensure t
   :init
   (add-hook 'python-mode-hook 'jedi:setup)
   (add-hook 'python-mode-hook 'jedi:ac-setup))
 
-;; Markdown syntax coloring and commands
+; Configure Markdown syntax coloring and commands
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
@@ -120,71 +157,14 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-;; Directory tree display, like Vim's Nerdtree
-(defvar winum-keymap)
-(use-package treemacs
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-  :config
-  (progn
-    (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
-          treemacs-deferred-git-apply-delay   0.5
-          treemacs-display-in-side-window     t
-          treemacs-file-event-delay           5000
-          treemacs-file-follow-delay          0.2
-          treemacs-follow-after-init          t
-          treemacs-follow-recenter-distance   0.1
-          treemacs-goto-tag-strategy          'refetch-index
-          treemacs-indentation                2
-          treemacs-indentation-string         " "
-          treemacs-is-never-other-window      nil
-          treemacs-no-png-images              nil
-          treemacs-project-follow-cleanup     nil
-          treemacs-persist-file               (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-          treemacs-recenter-after-file-follow nil
-          treemacs-recenter-after-tag-follow  nil
-          treemacs-show-hidden-files          t
-          treemacs-silent-filewatch           nil
-          treemacs-silent-refresh             nil
-          treemacs-sorting                    'alphabetic-desc
-          treemacs-space-between-root-nodes   t
-          treemacs-tag-follow-cleanup         t
-          treemacs-tag-follow-delay           1.5
-          treemacs-width                      35)
-
-    ;; The default width and height of the icons is 22 pixels. If you are
-    ;; using a Hi-DPI display, uncomment this to double the icon size.
-    ;;(treemacs-resize-icons 44)
-
-    (treemacs-follow-mode t)
-    (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode t)
-    (pcase (cons (not (null (executable-find "git")))
-                 (not (null (executable-find "python3"))))
-      (`(t . t)
-       (treemacs-git-mode 'extended))
-      (`(t . _)
-       (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
-
-;; Powerline for a fancier mode line, a la Vim.
+; Use Powerline for a fancier mode line, a la Vim.
 (use-package powerline
   :ensure t
   :config
   (powerline-default-theme)
   )
 
-;; Web mode, to improve working with HTML, etc.
+; Use Web mode to improve working with HTML, etc.
 (use-package web-mode
   :ensure t
   :config
@@ -196,14 +176,14 @@
 (setq web-mode-enable-auto-quoting t))
 
 
-;; Display the time
-(display-time-mode 1)
-
-;; overwrite selected text (by default, Emacs does not do this)
+; overwrite selected text (by default, Emacs does not do this)
 (delete-selection-mode t)
 
-;; Org mode custom key kindings
-;; The following lines are always needed.  Choose your own keys.
+(setq backup-directory-alist
+          `(("." . ,(concat user-emacs-directory "backups"))))
+
+; Org mode custom key kindings
+; The following lines are always needed.  Choose your own keys.
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
@@ -217,12 +197,16 @@
 ;; File location to build agenda view from
 (setq org-agenda-files '("~/Dropbox/logs/"))
 
+; Where to archive completed tasks
+(setq org-archive-location "~/Dropbox/logs/archive.org::")
+
 (setq org-capture-templates
       '(("a" "My TODO task format." entry
          (file "todo.org")
          "* TODO %?
 SCHEDULED: %t")))
 
+; Use org-journal for a simple daily journal
 (use-package org-journal
   :ensure t
   :custom
@@ -230,6 +214,6 @@ SCHEDULED: %t")))
       (org-journal-file-format "%m.%d.%Y.org"))
 
 
-;; Disable backup files
+; Disable backup files
 (setq make-backup-files nil)
 (setq auto-save-default nil)
