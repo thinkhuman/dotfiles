@@ -8,7 +8,6 @@
 (package-initialize)
 
 
-
 ; Bootstrap use-package
 (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
@@ -17,7 +16,6 @@
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
@@ -33,11 +31,19 @@
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(frame-background-mode (quote dark))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(org-archive-save-context-info (quote (time file)))
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
+ '(org-refile-allow-creating-parent-nodes (quote confirm))
+ '(org-refile-targets
+   (quote
+    (("~/Dropbox/logs/todo.org" :maxlevel . 1)
+     ("~/Dropbox/logs/someday.org" :level . 2)
+     ("~/Dropbox/logs/tickler.org" :maxlevel . 2))))
+ '(org-refile-use-outline-path (quote file))
  '(package-selected-packages
    (quote
-    (zenburn-theme sr-speedbar color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna)))
+    (zenburn-theme color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna)))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -97,31 +103,6 @@
 	:ensure t
 	:config
 	(which-key-mode))
-
-; Use speedbar and sr-speedbar, for a sidebar file browser
-(use-package sr-speedbar
-  :ensure t
-  :init
-(set-variable 'sr-speedbar-right-side nil))
-;;(setq speedbar-use-images nil)
-(setq speedbar-show-unknown-files t)
-(setq sr-speedbar-width 15)
-(setq speedbar-directory-unshown-regexp
-"^\\(CVS\\|RCS\\|SCCS\\|\\.\\.*$\\)\\'")
-(sr-speedbar-open)
-
-
-(when window-system
-  (defadvice sr-speedbar-open (after sr-speedbar-open-resize-frame activate)
-    (set-frame-width (selected-frame)
-                     (+ (frame-width) sr-speedbar-width)))
-  (ad-enable-advice 'sr-speedbar-open 'after 'sr-speedbar-open-resize-frame)
-
-  (defadvice sr-speedbar-close (after sr-speedbar-close-resize-frame activate)
-    (sr-speedbar-recalculate-width)
-    (set-frame-width (selected-frame)
-                     (- (frame-width) sr-speedbar-width)))
-(ad-enable-advice 'sr-speedbar-close 'after 'sr-speedbar-close-resize-frame))
 
 ; Use Ido mode, for completion
 (defvar ido-enable-flex-matching)
@@ -199,7 +180,7 @@
 (setq org-agenda-files '(
 			 "~/Dropbox/logs/capture.org"
 			 "~/Dropbox/logs/todo.org"
-			 "~/Dropbox/logs/ticker.org"
+			 "~/Dropbox/logs/tickler.org"
 			 ))
 ; Set where to archive completed tasks
 (setq org-archive-location "~/Dropbox/logs/archive.org::")
@@ -210,7 +191,8 @@
                                "* TODO %i%?")
                               ("t" "Tickler" entry
                                (file+headline "~/Dropbox/logs/tickler.org" "Tickler")
-                               "* %i%? \n %U")))
+                               "* %i%? \n %U")
+			      ))
 
 ; Use org-journal for a simple daily journal
 (use-package org-journal
