@@ -16,6 +16,7 @@
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector
@@ -34,12 +35,13 @@
  '(org-archive-save-context-info (quote (time file)))
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
+ '(org-log-repeat nil)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets
    (quote
     (("~/Dropbox/logs/todo.org" :maxlevel . 1)
-     ("~/Dropbox/logs/someday.org" :level . 2)
-     ("~/Dropbox/logs/tickler.org" :maxlevel . 2))))
+     ("~/Dropbox/logs/someday.org" :level . 1)
+     ("~/Dropbox/logs/tickler.org" :maxlevel . 1))))
  '(org-refile-use-outline-path (quote file))
  '(package-selected-packages
    (quote
@@ -88,6 +90,7 @@
 (setq default-frame-alist '((font . "UbuntuMono-12"))) ; set default font
 (add-to-list 'default-frame-alist '(fullscreen . maximized)) ; maximise Emacs frame by default
 (define-key global-map (kbd "RET") 'newline-and-indent)
+(setq org-hide-emphasis-markers t)
 
 ; Display buffer's full path name in frame title bar
 (setq frame-title-format
@@ -191,6 +194,9 @@
                                "* TODO %i%?")
                               ("t" "Tickler" entry
                                (file+headline "~/Dropbox/logs/tickler.org" "Tickler")
+                               "* %i%? \n %U")
+			      ("s" "Someday" entry
+                               (file+headline "~/Dropbox/logs/someday.org" "Someday")
                                "* %i%? \n %U")
 			      ))
 
