@@ -36,6 +36,7 @@
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
  '(org-log-repeat nil)
+ '(org-priority-faces nil)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets
    (quote
