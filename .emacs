@@ -32,6 +32,7 @@
  '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
  '(frame-background-mode (quote dark))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(org-agenda-restore-windows-after-quit t)
  '(org-archive-save-context-info (quote (time file)))
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
