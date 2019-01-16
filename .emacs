@@ -204,11 +204,11 @@
 			      ))
 
 ; Use org-journal for a simple daily journal
-(use-package org-journal
-  :ensure t
-  :custom
-      (org-journal-dir "~/Dropbox/logs/journal/")
-      (org-journal-file-format "%m.%d.%Y.org"))
+;(use-package org-journal
+ ; :ensure t
+  ;:custom
+   ;   (org-journal-dir "~/Dropbox/logs/journal/")
+    ;  (org-journal-file-format "%m.%d.%Y.org"))
 
 
 ; Disable backup files
