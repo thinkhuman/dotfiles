@@ -33,6 +33,7 @@
  '(frame-background-mode (quote dark))
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(org-agenda-restore-windows-after-quit t)
+ '(org-agenda-window-setup (quote other-window))
  '(org-archive-save-context-info (quote (time file)))
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
