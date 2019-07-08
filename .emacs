@@ -35,6 +35,7 @@
  '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-window-setup (quote other-window))
  '(org-archive-save-context-info (quote (time file)))
+ '(org-columns-default-format "%40ITEM %TODO %3PRIORITY %20TAGS")
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
  '(org-log-repeat nil)
@@ -46,6 +47,7 @@
      ("~/Dropbox/logs/someday.org" :level . 1)
      ("~/Dropbox/logs/tickler.org" :maxlevel . 1))))
  '(org-refile-use-outline-path (quote file))
+ '(org-support-shift-select t)
  '(package-selected-packages
    (quote
     (zenburn-theme color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna)))
