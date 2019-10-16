@@ -24,37 +24,36 @@
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(beacon-color "#cc6666")
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-enabled-themes '(sanityinc-tomorrow-night))
  '(custom-safe-themes
-   (quote
-    ("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "3f44e2d33b9deb2da947523e2169031d3707eec0426e78c7b8a646ef773a2077" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+   '("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "3f44e2d33b9deb2da947523e2169031d3707eec0426e78c7b8a646ef773a2077" "1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default))
+ '(desktop-save-mode t)
+ '(display-time-default-load-average nil)
+ '(display-time-mode nil)
  '(fci-rule-color "#373b41")
- '(flycheck-color-mode-line-face-to-color (quote mode-line-buffer-id))
- '(frame-background-mode (quote dark))
- '(initial-frame-alist (quote ((fullscreen . maximized))))
+ '(flycheck-color-mode-line-face-to-color 'mode-line-buffer-id)
+ '(frame-background-mode 'dark)
+ '(initial-frame-alist '((fullscreen . maximized)))
  '(org-agenda-restore-windows-after-quit t)
- '(org-agenda-window-setup (quote other-window))
- '(org-archive-save-context-info (quote (time file)))
+ '(org-agenda-window-setup 'other-window)
+ '(org-archive-save-context-info '(time file))
  '(org-columns-default-format "%40ITEM %TODO %3PRIORITY %20TAGS")
  '(org-journal-dir "~/Dropbox/logs/journal/")
  '(org-journal-file-format "%m.%d.%Y.org")
  '(org-log-repeat nil)
  '(org-priority-faces nil)
- '(org-refile-allow-creating-parent-nodes (quote confirm))
+ '(org-refile-allow-creating-parent-nodes 'confirm)
  '(org-refile-targets
-   (quote
-    (("~/Dropbox/logs/todo.org" :maxlevel . 1)
+   '(("~/Dropbox/logs/todo.org" :maxlevel . 1)
      ("~/Dropbox/logs/someday.org" :level . 1)
-     ("~/Dropbox/logs/tickler.org" :maxlevel . 1))))
- '(org-refile-use-outline-path (quote file))
+     ("~/Dropbox/logs/tickler.org" :maxlevel . 1)))
+ '(org-refile-use-outline-path 'file)
  '(org-support-shift-select t)
  '(package-selected-packages
-   (quote
-    (zenburn-theme color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna)))
+   '(treemacs zenburn-theme color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#cc6666")
+   '((20 . "#cc6666")
      (40 . "#de935f")
      (60 . "#f0c674")
      (80 . "#b5bd68")
@@ -71,14 +70,19 @@
      (300 . "#cc6666")
      (320 . "#de935f")
      (340 . "#f0c674")
-     (360 . "#b5bd68"))))
+     (360 . "#b5bd68")))
  '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(linum ((t (:foreground "#42a5f5" :background "#222222" :box nil)))))
+ '(linum ((t (:foreground "#42a5f5" :background "#222222" :box nil))))
+ '(markdown-bold-face ((t (:inherit bold :foreground "deep sky blue"))))
+ '(markdown-code-face ((t (:inherit fixed-pitch :background "#1d1f21" :foreground "#b294bb" :height 0.9))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :foreground "steel blue" :height 1.05))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :foreground "yellow green" :height 1.05))))
+ '(markdown-italic-face ((t (:inherit italic :foreground "deep sky blue")))))
 
 ; UI CUSTOMIZATION
 (defvar linum-format)
