@@ -50,7 +50,7 @@
  '(org-refile-use-outline-path 'file)
  '(org-support-shift-select t)
  '(package-selected-packages
-   '(treemacs zenburn-theme color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))
+   '(org-make-toc treemacs zenburn-theme color-theme neotree auto-complete yasnippet auto-shell-command color-theme-sanityinc-tomorrow markdown-mode jedi flycheck which-key use-package org-edna))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    '((20 . "#cc6666")
@@ -77,6 +77,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#1d1f21" :foreground "#c5c8c6" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "DAMA" :family "Inconsolata"))))
  '(linum ((t (:foreground "#42a5f5" :background "#222222" :box nil))))
  '(markdown-bold-face ((t (:inherit bold :foreground "deep sky blue"))))
  '(markdown-code-face ((t (:inherit fixed-pitch :background "#1d1f21" :foreground "#b294bb" :height 0.9))))
