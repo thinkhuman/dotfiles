@@ -37,14 +37,15 @@ Creates:
 
 ## How to Use
 
-Clone the repository into your home directory (or `~/dotfiles` if you prefer):
+1. Create a `~/dotfiles` directory on the machine
+2. Switch to `~/dotfiles` and clone the repository into it:
 
 ```bash
-git clone git@github.com:<your-username>/dotfiles.git ~/dotfiles
 cd ~/dotfiles
+git clone git@github.com:<your-username>/dotfiles.git
 ```
-
-Then stow each configuration package you want to enable:
+3. Remove or backup any existing dotfiles that you are replacing (e.g., `.bashrc`).
+4. Run Stow for each package you want to enable:
 ```bash
 stow bash
 stow git
@@ -52,7 +53,6 @@ stow starship
 stow <yourpackagehere>
 ```
 
-Stow will create the appropriate symlinks in `$HOME` and `~/.config`.
 
 ## Adding New Dotfiles
 
