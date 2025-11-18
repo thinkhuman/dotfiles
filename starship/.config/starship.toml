@@ -1,0 +1,99 @@
+add_newline = true
+scan_timeout = 20
+format = """
+$time\ 
+$username@$hostname $os$directory$git_branch$git_status$python$nodejs$rust$golang$memory_usage$battery$cmd_duration\\$ """
+
+
+[username]
+show_always = true
+style_user = "bold yellow"
+style_root = "bold red"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style)"
+style = "bold blue"
+
+
+[time]
+format = "[$time]($style) "
+time_format = "[%I:%M %p]"
+style = "dark blue"
+disabled = false
+
+[directory]
+style = "bold green"
+truncation_length = 6
+truncate_to_repo = false
+home_symbol = "~"
+
+[git_branch]
+symbol = " "
+style = "bold magenta"
+
+[git_status]
+style = "white"
+format = "$all_status "
+untracked = "✱${count} "
+modified = "✎${count} "
+staged = "+${count} "
+ahead = "↑${count} "
+behind = "↓${count} "
+conflicted = "‼ "
+
+[os]
+disabled = false
+format = "[$symbol]($style) "
+style = "red"
+
+[os.symbols]
+Ubuntu = " "
+
+[python]
+symbol = "🐍 "
+style = "bold green"
+format = "$symbol[${version}]($style) "
+
+[nodejs]
+symbol = " "
+style = "bold blue"
+format = "$symbol[${version}]($style) "
+
+[rust]
+symbol = "🦀 "
+style = "bold red"
+format = "$symbol[${version}]($style) "
+
+[golang]
+symbol = "🐹 "
+style = "bold cyan"
+format = "$symbol[${version}]($style) "
+
+[memory_usage]
+disabled = false
+threshold = 70
+symbol = "🧠 "
+style = "bold blue"
+format = "$symbol[$ram_pct]($style) "
+
+[battery]
+disabled = false
+full_symbol = "🔋"
+charging_symbol = "⚡"
+discharging_symbol = "🔌"
+unknown_symbol = "❓"
+empty_symbol = "🪫"
+format = "$symbol[$percentage]($style) "
+style = "bold yellow"
+
+[cmd_duration]
+min_time = 2000
+format = "⏱ [$duration]($style) "
+style = "yellow"
+
+[character]
+success_symbol = "[✔](bold green)"
+error_symbol = "[✘](bold red)"
+vicmd_symbol = "[🕪](bold blue)"

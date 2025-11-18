@@ -1,0 +1,12 @@
+# Ignore editor backups
+*~
+*.swp
+
+# macOS junk (if you ever sync)
+.DS_Store
+
+# GNUPG keys are dangerous, do NOT track them
+.gnupg/
+
+# SSH private keys (never track)
+.ssh/id_*
