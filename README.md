@@ -1,78 +1,47 @@
 # Dotfiles
 
-A collection of my personal Linux configuration files, managed with [GNU Stow](https://www.gnu.org/software/stow/).  
-This repository lets me keep my environment consistent across machines and makes setup on new systems simple and repeatable.
+This repository contains my personal Linux configuration files, managed using GNU Stow.  
+It allows me to reproduce my environment on any new machine with minimal manual setup.
 
-## Overview
+## Setup on a New Machine
 
-Each application or tool has its own directory under `dotfiles/`.  
-Inside each directory, the folder structure mirrors the final location in my home directory.  
-Running `stow <package>` creates symlinks from this repository into `$HOME`.
-
-Example:
-
-```
-dotfiles/
-  bash/
-    .bashrc
-    .bash_aliases
-
-  starship/
-    .config/starship.toml
-
-  alacritty/
-    .config/alacritty/alacritty.yml
-```
-
-Running:
-```
-stow bash
-```
-
-Creates:
-```
-~/.bashrc -> dotfiles/bash/.bashrc
-~/.bash_aliases -> dotfiles/bash/.bash_aliases
-```
-
-## How to Use
-
-1. Create a `~/dotfiles` directory on the machine
-2. Switch to `~/dotfiles` and clone the repository into it:
+### 1. Install Git and Stow
 
 ```bash
+sudo apt install git stow -y
+```
+
+### 2. Clone the Repository
+
+```bash
+git clone git@github.com:<your-username>/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-git clone git@github.com:<your-username>/dotfiles.git
 ```
-3. Remove or backup any existing dotfiles that you are replacing (e.g., `.bashrc`).
-4. Run Stow for each package you want to enable:
+
+### 3. Bootstrap Dotfiles
+
 ```bash
-stow bash
-stow git
-stow starship
-stow <yourpackagehere>
+./bootstrap-dotfiles.sh
 ```
 
+This script:
 
-## Adding New Dotfiles
+- Detects conflicting files  
+- Backs them up to `~/dotfiles_backup_<timestamp>`  
+- Removes originals  
+- Applies stow packages  
 
-1. Create a directory under `dotfiles/` named after the tool.
-2. Recreate the path to the real file starting from `$HOME`.
-3. Move the file from your system into that directory.
-4. Remove the original from `$HOME`.
-5. Run `stow <package>`.
+### Full Provisioning
 
-Example for Starship:
+If you want to install apps and apply dotfiles at once:
+
 ```bash
-mkdir -p dotfiles/starship/.config
-mv ~/.config/starship.toml dotfiles/starship/.config/
-rm ~/.config/starship.toml
-stow starship
+./provision.sh
 ```
+
+This installs packages (git, stow, tmux, alacritty, starship, etc.) and uses the bootstrap script to apply dotfiles automatically.
 
 ## Notes
 
-- Do **not** store secrets or private keys in this repository.
-- Stow operations are safe and reversible.
-  `stow -D <package>` removes symlinks without deleting your files.
-- This repository is meant to be used on Linux systems.
+- Do **not** store secrets or private keys in this repo.
+- Stow operations are reversible using `stow -D <package>`.

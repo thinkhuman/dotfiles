@@ -2,7 +2,7 @@ add_newline = true
 scan_timeout = 20
 format = """
 $time\ 
-$username@$hostname $os$directory$git_branch$git_status$python$nodejs$rust$golang$memory_usage$battery$cmd_duration\\$ """
+$username@$hostname $os$directory$git_branch$git_status$python$nodejs$rust$golang$battery$cmd_duration\\$ """
 
 
 [username]
